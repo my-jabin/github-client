@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="8dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <TextView
+                android:id="@+id/tv_repo_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Repository Name" />
+
+            <TextView
+                android:id="@+id/tv_repo_item_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_name"
+                tools:text="repository @android:string/fingerprint_icon_content_description" />
+
+            <ImageView
+                android:id="@+id/image_repo_item_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_desc"
+                app:srcCompat="@drawable/ic_dot" />
+
+            <ImageView
+                android:id="@+id/image_repo_item_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toEndOf="@+id/tv_language"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_desc"
+                app:srcCompat="@drawable/ic_star" />
+
+            <TextView
+                android:id="@+id/tv_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="15dp"
+                android:paddingRight="28dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/image_repo_item_language"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_desc"
+                tools:text="Java" />
+
+            <TextView
+                android:id="@+id/tv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toEndOf="@+id/image_repo_item_star"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_desc"
+                tools:text="1,234" />
+
+            <ImageView
+                android:id="@+id/image_fork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_star"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_desc"
+                app:srcCompat="@drawable/ic_repo_forked" />
+
+            <TextView
+                android:id="@+id/tv_fork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toEndOf="@+id/image_fork"
+                app:layout_constraintTop_toBottomOf="@+id/tv_repo_item_desc"
+                tools:text="1,234" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>
+

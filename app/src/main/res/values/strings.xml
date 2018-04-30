@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GithubClient</string>
+    <string name="title_activity_repository_list">RepositoryListActivity</string>
+    <string name="owner_hint">username</string>
+</resources>

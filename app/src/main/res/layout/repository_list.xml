@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isLoading"
+            type="Boolean"/>
+        <variable
+            name="isEmpty"
+            type="Boolean"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        tools:context=".ui.RepositoryListActivity">
+
+        <TextView
+            android:id="@+id/tv_no_repository"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Repository is Empty"
+            android:visibility="@{isEmpty ? View.VISIBLE : View.GONE}"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.Design.Error"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_respositories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            android:visibility="@{isEmpty ? View.GONE : View.VISIBLE}"
+            android:scrollbars="vertical" >
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</layout>
+
