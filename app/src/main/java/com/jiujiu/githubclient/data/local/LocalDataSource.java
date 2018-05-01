@@ -2,26 +2,20 @@ package com.jiujiu.githubclient.data.local;
 
 import android.arch.lifecycle.LiveData;
 
-import com.jiujiu.githubclient.utils.InjectionUtil;
-
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class LocalDataSource {
 
     private OwnerDao ownerDao;
     private RepositoryDao repositoryDao;
-    private static LocalDataSource mInstance;
 
-    public static LocalDataSource getInstance() {
-        if (mInstance == null) {
-            mInstance = new LocalDataSource();
-        }
-        return mInstance;
-    }
-
-    //todo: inject local database
-    private LocalDataSource() {
-        LocalDatabase database = InjectionUtil.providesDatabase();
+    @Inject
+    public LocalDataSource(LocalDatabase database) {
+        // LocalDatabase database = InjectionUtil.providesDatabase();
         this.ownerDao = database.ownerDao();
         this.repositoryDao = database.repositoryDao();
     }

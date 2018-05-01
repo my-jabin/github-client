@@ -1,5 +1,6 @@
 package com.jiujiu.githubclient.ui;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -21,32 +22,46 @@ import com.jiujiu.githubclient.R;
 import com.jiujiu.githubclient.utils.Constant;
 import com.jiujiu.githubclient.viewModel.MainActivityViewModel;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ProgressBar mProgressBar;
     private MainActivityViewModel mViewModel;
     private Button mButton;
+    // to avoid bugs, add this variable to prevent double openning activity.
+    // todo: shoud move this variable.
+    private boolean isProcessing = false;
+
+    @Inject
+    ViewModelProvider.Factory factory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mProgressBar = findViewById(R.id.progressBar);
         mProgressBar.setVisibility(View.GONE);
         mButton = findViewById(R.id.button);
 
-        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
 
         mViewModel.getOwner().observe(this, ownerEntity -> {
+            if (isProcessing) return;
             Log.d(TAG, "onCreate: owner is empty ? " + (ownerEntity == null));
-            mProgressBar.setVisibility(View.GONE);
-            mButton.setEnabled(true);
+            isProcessing = true;
             if (ownerEntity != null) {
                 Log.d(TAG, "onCreate: show repository name =" + ownerEntity.getLogin());
                 openRepository(ownerEntity.getLogin());
+                mProgressBar.setVisibility(View.GONE);
             } else {
                 Toast.makeText(this, "The use does not exist", Toast.LENGTH_SHORT).show();
             }
+            mButton.setEnabled(true);
+            isProcessing = false;
         });
 
         mViewModel.getDeleteAllEvent().observe(this, (v) -> Toast.makeText(this, "All Records have been deleted", Toast.LENGTH_SHORT).show());
@@ -59,15 +74,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showRepository(View view) {
+        mButton.setEnabled(false);
         EditText editUserName = findViewById(R.id.et_userName);
         String userName = editUserName.getText().toString().trim();
         mProgressBar.setVisibility(View.VISIBLE);
-        mButton.setEnabled(false);
         this.mViewModel.showRepository(userName);
         dismissKeyboard(view.getWindowToken());
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

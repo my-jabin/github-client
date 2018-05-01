@@ -17,11 +17,4 @@ public interface GithubApi {
 
     @GET("/users/{userName}/repos?per_page=50")
     Observable<List<RepositoryResponse>> getRepository(@Path("userName") String userName);
-
-//    @GET("/users/{userName}")
-//    LiveData<ApiResponse<OwnerResponse>> getOwner(@Path("userName") String userName);
-//
-//    @GET("/users/{userName}/repos")
-//    LiveData<ApiResponse<List<RepositoryResponse>>> getRepository(@Path("userName") String userName);
-
 }

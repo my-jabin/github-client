@@ -7,11 +7,13 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
+import android.util.Log;
 
 import java.util.List;
 
 @Dao
 public abstract class RepositoryDao {
+    private static final String TAG = "RepositoryDao";
 
     @Query("select * from repositories where owner = :owner order by stargazersCount desc")
     abstract LiveData<List<RepositoryEntity>> getRepositoriesByOwner(String owner);
@@ -30,7 +32,9 @@ public abstract class RepositoryDao {
 
     @Transaction
     void refreshRepo(List<RepositoryEntity> list, String ownerName){
+        Log.d(TAG, "refreshRepo: start");
         delete(ownerName);
         bulkInsert(list);
+        Log.d(TAG, "refreshRepo: finish");
     }
 }
