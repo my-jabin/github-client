@@ -1,21 +1,31 @@
 package com.jiujiu.githubclient;
 
+import android.app.Activity;
 import android.app.Application;
 
-import com.jiujiu.githubclient.utils.InjectionUtil;
+import com.jiujiu.githubclient.di.component.DaggerAppComponent;
 
-import java.util.concurrent.Executors;
+import javax.inject.Inject;
 
-public class GithubApplication extends Application {
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+
+public class GithubApplication extends Application implements HasActivityInjector {
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        InjectionUtil.injectContext(this);
+        DaggerAppComponent.builder()
+                .application(this)
+                .build()
+                .inject(this);
+    }
 
-        Executors.newSingleThreadExecutor().execute(() -> {
-            InjectionUtil.providesDataRepository();
-        });
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
 }

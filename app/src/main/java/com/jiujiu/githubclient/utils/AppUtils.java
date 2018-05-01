@@ -6,8 +6,7 @@ import android.net.NetworkInfo;
 
 public class AppUtils {
 
-    public static boolean isConneted(){
-        Context context = InjectionUtil.prividesContext();
+    public static boolean isConneted(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
